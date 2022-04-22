@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/index.css">
+    <title>Mesto</title>
+</head>
+
+<body class="root">
+    <div class="page">
+        <section class="header">
+            <img src="./images/logo_header.png" class="header__logo" alt="Место">
+            <div class="header__line"></div>
+        </section>
+
+        <section class="profile">
+            <div class="profile__block">
+                <div class="profile__column-info">
+                    <img class="profile__pic" src="./images/Cousteau.png" alt="Avatar">
+                    <div class="profile__info">
+                        <div class="profile__name-container">
+                            <h1 class="profile__name">Жак-Ив Кусто</h1>
+                            <img src="./images/symbols/pencil.png" class="symbol_edit symbol">
+                        </div>
+                        <h3 class="profile__description">Исследователь океана</h3>
+                    </div>
+                </div>
+
+                <div class="profile__column-add">
+                    <button class="profile__add"><img src="./images/symbols/plus.png" class="symbol"></button>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="places">
+            <div class="places__items">
+                <div>
+                    <img src="./images/places/tallinn.jpeg" class="place__img" alt="Tallinn">
+                    <div class="place__description">
+                        <h2 class="place__name"> Таллин</h2>
+                        <a><img src="./images/symbols/like.png" class="symbol place__like"></a>
+                    </div>
+                </div>
+                <div>
+                    <img src="./images/places/london.jpeg" class="place__img" alt="London">
+                    <div class="place__description">
+                        <h2 class="place__name">Лондон</h2>
+                        <a><img src="./images/symbols/like.png" class="symbol place__like"></a>
+                    </div>
+                </div>
+                <div>
+                    <img src="./images/places/barcelona.jpeg" class="place__img" alt="Barcelona">
+                    <div class="place__description">
+                        <h2 class="place__name">Барселона</h2>
+                        <a><img src="./images/symbols/like.png" class="symbol place__like"></a>
+                    </div>
+                </div>
+                <div>
+                    <img src="./images/places/new_york.jpeg" class="place__img" alt="New York">
+                    <div class="place__description">
+                        <h2 class="place__name">Нью-Йорк</h2>
+                        <a><img src="./images/symbols/like.png" class="symbol place__like"></a>
+                    </div>
+                </div>
+                <div>
+                    <img src="./images/places/beijing.jpeg" class="place__img" alt="Beijing">
+                    <div class="place__description">
+                        <h2 class="place__name">Пекин</h2>
+                        <a><img src="./images/symbols/like.png" class="symbol place__like"></a>
+                    </div>
+                </div>
+                <div>
+                    <img src="./images/places/sydney.jpeg" class="place__img" alt="Sydney">
+                    <div class="place__description">
+                        <h2 class="place__name">Сидней</h2>
+                        <a><img src="./images/symbols/like.png" class="symbol place__like"></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <h4 class="footer__copyright">&copy 2020. Mesto Russia</h4>
+        </footer>
+
+
+
+        <div class="popup popup_opened">
+            <div class="popup__container">
+                <div class="symbol symbol_popup"></div>
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <form class="form">
+                    <fieldset class="form__name">
+                        <input class="form__item" type="text">
+                    </fieldset>
+                    <fieldset class="form__description">
+                        <input class="form__item" type="text">
+                    </fieldset>
+                    <button class="form__button">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
