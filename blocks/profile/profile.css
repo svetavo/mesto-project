@@ -1,11 +1,22 @@
 .profile {
     padding-top: 36.25px;
     padding-bottom: 47.25px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0;
 }
 
 @media screen and (max-width: 767px) {
     .profile {
         padding-top: 38.25px;
         padding-bottom: 36px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        flex-wrap: wrap;
     }
 }

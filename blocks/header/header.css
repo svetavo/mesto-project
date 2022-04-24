@@ -2,8 +2,19 @@
     padding-top: 45px;
 }
 
+.header::after {
+    display: block;
+    content: " ";
+    height: 41px;
+    border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+    width: 100%;
+}
+
 @media screen and (max-width: 767px) {
     .header {
         padding-top: 28px;
+    }
+    .header::after {
+        height: 31.6px;
     }
 }

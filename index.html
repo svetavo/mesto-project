@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
@@ -11,96 +11,87 @@
 
 <body class="root">
     <div class="page">
-        <section class="header">
-            <img src="./images/logo_header.png" class="header__logo" alt="Место">
-            <div class="header__line"></div>
-        </section>
+        <header class="header">
+            <img src="./images/logo_header.svg" class="header__logo" alt="Место">
+        </header>
 
+<main>      
         <section class="profile">
-            <div class="profile__block">
                 <div class="profile__column-info">
-                    <img class="profile__pic" src="./images/Cousteau.png" alt="Avatar">
+                    <img class="profile__pic" src="./images/Cousteau.png" alt="Изображение профиля">
                     <div class="profile__info">
                         <div class="profile__name-container">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
-                            <img src="./images/symbols/pencil.png" class="symbol_edit symbol">
+                            <button type="button" name="profile_edit" class="profile__edit-button" aria-label="Редактировать профиль"></button>
                         </div>
-                        <h3 class="profile__description">Исследователь океана</h3>
+                        <p class="profile__description">Исследователь океана</p>
                     </div>
                 </div>
-
-                <div class="profile__column-add">
-                    <button class="profile__add"><img src="./images/symbols/plus.png" class="symbol"></button>
-                </div>
-            </div>
-
+                    <button type="button" name="profile_add" class="profile__add-button" aria-label="Добавить"></button>
         </section>
 
         <section class="places">
-            <div class="places__items">
-                <div>
-                    <img src="./images/places/tallinn.jpeg" class="place__img" alt="Tallinn">
+            <ul class="places__items">
+                <li class="place">
+                    <img src="./images/places/tallinn.jpeg" class="place__img" alt="Старый город">
                     <div class="place__description">
-                        <h2 class="place__name"> Таллин</h2>
-                        <a><img src="./images/symbols/like.png" class="symbol place__like"></a>
+                        <h2 class="place__name">Таллин</h2>
+                        <button type="button" class="place__like-button" aria-label="Нравится"></button>
                     </div>
-                </div>
-                <div>
-                    <img src="./images/places/london.jpeg" class="place__img" alt="London">
+                </li>
+                <li class="place">
+                    <img src="./images/places/london.jpeg" class="place__img" alt="Биг-Бен">
                     <div class="place__description">
                         <h2 class="place__name">Лондон</h2>
-                        <a><img src="./images/symbols/like.png" class="symbol place__like"></a>
+                        <button type="button" class="place__like-button" aria-label="Нравится"></button>
                     </div>
-                </div>
-                <div>
-                    <img src="./images/places/barcelona.jpeg" class="place__img" alt="Barcelona">
+                </li>
+                <li class="place">
+                    <img src="./images/places/barcelona.jpeg" class="place__img" alt="Саграда Фамилия">
                     <div class="place__description">
                         <h2 class="place__name">Барселона</h2>
-                        <a><img src="./images/symbols/like.png" class="symbol place__like"></a>
+                        <button type="button" class="place__like-button" aria-label="Нравится"></button>
                     </div>
-                </div>
-                <div>
-                    <img src="./images/places/new_york.jpeg" class="place__img" alt="New York">
+                </li>
+                <li class="place">
+                    <img src="./images/places/new_york.jpeg" class="place__img" alt="Манхеттен">
                     <div class="place__description">
                         <h2 class="place__name">Нью-Йорк</h2>
-                        <a><img src="./images/symbols/like.png" class="symbol place__like"></a>
+                        <button type="button" class="place__like-button" aria-label="Нравится"></button>
                     </div>
-                </div>
-                <div>
-                    <img src="./images/places/beijing.jpeg" class="place__img" alt="Beijing">
+                </li>
+                <li class="place">
+                    <img src="./images/places/beijing.jpeg" class="place__img" alt="Ночной пекин">
                     <div class="place__description">
                         <h2 class="place__name">Пекин</h2>
-                        <a><img src="./images/symbols/like.png" class="symbol place__like"></a>
+                        <button type="button" class="place__like-button" aria-label="Нравится"></button>
                     </div>
-                </div>
-                <div>
-                    <img src="./images/places/sydney.jpeg" class="place__img" alt="Sydney">
+                </li>
+                <li class="place">
+                    <img src="./images/places/sydney.jpeg" class="place__img" alt="Сидней в лучах прожекторов">
                     <div class="place__description">
                         <h2 class="place__name">Сидней</h2>
-                        <a><img src="./images/symbols/like.png" class="symbol place__like"></a>
+                        <button type="button" class="place__like-button" aria-label="Нравится"></button>
                     </div>
-                </div>
-            </div>
+                </li>
+            </ul>
         </section>
-
+</main>
         <footer class="footer">
-            <h4 class="footer__copyright">&copy 2020. Mesto Russia</h4>
+            <p class="footer__copyright">&copy; 2020. Mesto Russia</p>
         </footer>
 
-
-
-        <div class="popup popup_opened">
+        <!-- для открытия формы необходимо добавить класс popup_opened -->
+        <div class="popup popup_opened"> 
             <div class="popup__container">
-                <div class="symbol symbol_popup"></div>
+                <button type="button" class="popup__close-button" aria-label="Закрыть окно"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <form class="form">
+                <form class="form" method="post" name="profile_data">
                     <fieldset class="form__name">
-                        <input class="form__item" type="text">
+                        <input class="form__item" type="text" id="user_name" name="name" placeholder="Имя">
+                        <input class="form__item" type="text" id="user_description" name="description" placeholder="О себе">
                     </fieldset>
-                    <fieldset class="form__description">
-                        <input class="form__item" type="text">
-                    </fieldset>
-                    <button class="form__button">Сохранить</button>
+                    <button type="submit" class="form__button">Сохранить</button>
                 </form>
             </div>
         </div>

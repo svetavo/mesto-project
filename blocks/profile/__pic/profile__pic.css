@@ -1,6 +1,6 @@
 .profile__pic {
     display: block;
-    width: 168.75px;
+    max-width: 168.75px;
     border-radius: 50%;
     align-self: center;
 }
