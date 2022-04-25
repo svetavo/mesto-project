@@ -17,11 +17,11 @@
         width: 18px;
         height: 18px;
         padding: 5.25px;
-        margin-left: 10px;    
+        margin-left: 10px;
     }
 }
 
 .profile__edit-button:hover {
-    opacity: 0.5;
+    opacity: 0.6;
     cursor: pointer;
 }
