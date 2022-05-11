@@ -1,23 +1,29 @@
 // **** МАССИВ КАРТОЧЕК ****
 
 const PlacesCards = [
-  {title: 'Таллин',
-  img: "./images/places/tallinn.jpeg"
+  {
+    title: 'Таллин',
+    img: "./images/places/tallinn.jpeg"
   },
-  {title: 'Лондон',
-  img: "./images/places/london.jpeg"
+  {
+    title: 'Лондон',
+    img: "./images/places/london.jpeg"
   },
-  {title: 'Барселона',
-  img: "./images/places/barcelona.jpeg"
+  {
+    title: 'Барселона',
+    img: "./images/places/barcelona.jpeg"
   },
-  {title: 'Нью-Йорк',
-  img: "./images/places/new_york.jpeg"
+  {
+    title: 'Нью-Йорк',
+    img: "./images/places/new_york.jpeg"
   },
-  {title: 'Пекин',
-  img: "./images/places/beijing.jpeg"
+  {
+    title: 'Пекин',
+    img: "./images/places/beijing.jpeg"
   },
-  {title: 'Сидней',
-  img: "./images/places/sydney.jpeg"
+  {
+    title: 'Сидней',
+    img: "./images/places/sydney.jpeg"
   }
 ]
 
@@ -59,24 +65,21 @@ addButton.addEventListener('click', function () {
   openPopup(popUpPlace);
 });
 
-// popupClose.addEventListener('click', function () {
-//   popupClose.closest('.popup').classList.toggle('popup_opened');
-// });
 
 function closePopupEdit() {
-popUpEdit.classList.toggle('popup_opened');
+  popUpEdit.classList.toggle('popup_opened');
 }
 
 popUpCloseEdit.addEventListener('click', closePopupEdit);
 
 function closePopupPlace() {
-popUpPlace.classList.remove('popup_opened');
+  popUpPlace.classList.remove('popup_opened');
 }
 
 popUpClosePlace.addEventListener('click', closePopupPlace);
 
 function closePopupImage() {
-popUpImage.classList.toggle('popup_opened');
+  popUpImage.classList.toggle('popup_opened');
 }
 
 popupCloseImage.addEventListener('click', closePopupImage);
@@ -87,7 +90,7 @@ editSubmit.addEventListener('click', function () {
   profileName.textContent = profileNameInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
   popUpEdit.classList.remove('popup_opened');
-  });
+});
 
 
 // добавление места
@@ -105,7 +108,7 @@ placeSubmit.addEventListener('click', function () {
 
   placeElement.querySelector('.place__like-button').addEventListener('click', function (evt) {
     evt.target.classList.toggle('place__like-button_active');
-    });
+  });
 
   placeElement.querySelector('.place__delete-button').addEventListener('click', function (evt) {
     evt.target.closest('.place').remove();
@@ -116,7 +119,7 @@ placeSubmit.addEventListener('click', function () {
     popupImageContent.src = item.img;
     popupImageTitle.textContent = item.title;
   });
-  });
+});
 
 // загрузка начальных карточек
 PlacesCards.forEach(function (item) {
@@ -128,18 +131,19 @@ PlacesCards.forEach(function (item) {
 
 
   placeElement.querySelector('.place__like-button').addEventListener('click', function (evt) {
-  evt.target.classList.toggle('place__like-button_active');
-});
+    evt.target.classList.toggle('place__like-button_active');
+  });
 
-placeElement.querySelector('.place__delete-button').addEventListener('click', function (evt) {
-  evt.target.closest('.place').remove();
-});
+  placeElement.querySelector('.place__delete-button').addEventListener('click', function (evt) {
+    evt.target.closest('.place').remove();
+  });
 
-placeElement.querySelector('.place__img').addEventListener('click', function (evt) {
-  popUpImage.classList.toggle('popup_opened');
-  popupImageContent.src = item.img;
-  popupImageTitle.textContent = item.title;
-});
+  placeElement.querySelector('.place__img').addEventListener('click', function (evt) {
+    popUpImage.classList.toggle('popup_opened');
+    popupImageContent.src = item.img;
+    popupImageTitle.textContent = item.title;
+    popupImageContent.alt = item.title;
+  });
 
 
   placesItems.append(placeElement);
@@ -149,6 +153,3 @@ placeElement.querySelector('.place__img').addEventListener('click', function (ev
   placesItems.append(placeElement);
   placesItems.append(placeElement);
 });
-
-
-
