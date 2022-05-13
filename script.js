@@ -134,20 +134,20 @@ document.querySelector('.form-add-place').addEventListener('submit', function (e
 
 
 // лайк делит попап
-placeElement.querySelector('.place__like-button').addEventListener('click', function (evt) {
+function placeLike(evt) {
   evt.target.classList.toggle('place__like-button_active');
-});
+};
 
-placeElement.querySelector('.place__delete-button').addEventListener('click', function (evt) {
+function placeDelete(evt) {
   evt.target.closest('.place').remove();
-});
+};
 
-placeElement.querySelector('.place__img').addEventListener('click', function (evt) {
+function placeImagePopup(evt) {
   popUpImage.classList.toggle('popup_opened');
   popupImageContent.src = item.img;
   popupImageTitle.textContent = item.title;
   popupImageContent.alt = item.title;
-});
+};
 
 
 // добавление карточки через плюс
