@@ -81,7 +81,8 @@ popUpClosePlace.addEventListener('click', function () {
 popupCloseImage.addEventListener('click', function () {
   closePopup(popUpImage);
 });
-renderCards
+
+
 // изменение профиля
 document.querySelector('.form-edit').addEventListener('submit', function (evt) {
   evt.preventDefault();
@@ -112,24 +113,19 @@ function createPlace(title,link) {
 
 
   // функция загрузки карточек из массива
-function renderCards() {
-  placesCards.forEach(function (item) {  //каждй элемент массива создается и добавляется в грид контейнер
+  placesCards.forEach((item) => {
   placesItems.append(createPlace(item.title,item.link)); //обращаемся к функции. указываем откуда брать название и ссылку
 });
-};
   //*****конец функции загрузки карточек из массива*****
 
 
-//функция добавления карточек по кнопке
-  function addCards() {
-    placesItems.prepend(createPlace(placeNameInput.value, placeImgInput.value)); //обращаемся к фунции и добавляем карточки в начало списка
-  }
-//*****конец функции добавления карточек по кнопке*****
-
-//вешаем прослушиватель на кнопку СОЗДАТЬ место
+//добавление карточки через кнопку
 document.querySelector('.form-add-place').addEventListener('submit', function (evt) {
   evt.preventDefault(); //убираем перезагрузку страницы
+  placesItems.prepend(createPlace(placeNameInput.value, placeImgInput.value));
   popUpPlace.classList.remove('popup_opened'); //убираем попап
+  placeImgInput.value = '';
+  placeNameInput.value = '';
 });
 
 
@@ -142,20 +138,9 @@ function placeDelete(evt) {
   evt.target.closest('.place').remove();
 };
 
-function placeImagePopup(evt) {
+function placeImagePopup() {
   popUpImage.classList.toggle('popup_opened');
-  popupImageContent.src = item.img;
-  popupImageTitle.textContent = item.title;
-  popupImageContent.alt = item.title;
+  popupImageContent.src = link;
+  popupImageTitle.textContent = title;
+  popupImageContent.alt = title;
 };
-
-
-// добавление карточки через плюс
-// popUpPlace.classList.remove('popup_opened');
-// placesItems.prepend(placeElement);
-// placeImgInput.value = '';
-// placeNameInput.value = '';
-
-// placeElement.querySelector('.place__img').src = placeImgInput.value;
-// placeElement.querySelector('.place__name').textContent = placeNameInput.value;
-// placeElement.querySelector('.place__img').alt = placeNameInput.value;
