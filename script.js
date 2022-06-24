@@ -43,23 +43,35 @@ const placesItems = document.querySelector('.places__items');
 const editSubmit = document.querySelector('.form__button_edit')
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
-const profileNameInput = document.querySelector('#user_name');
-const profileDescriptionInput = document.querySelector('#user_description');
 const imageContainer = document.querySelector('.popup__image-content');
 const popupImageTitle = document.querySelector('.popup__image-title');
+const overlays = document.querySelectorAll('.popup');
 
 
 // **** ФУНКЦИИ ****
 
 // открытие и закрытие попапов
+// function closeByEscape(evt) {
+//   if (evt.key === 'Escape') {
+//     closePopup(overlay.closest('.popup'));
+//   }
+// }
+
+// overlays.forEach((overlay) => {
+//   overlay.addEventListener("click", () => {
+//     closeByEscape();
+//   });
+// });
+
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
 }
-editButton.addEventListener('click', function () {
+
+editButton.addEventListener('click', () => {
   openPopup(popUpEdit);
 });
 
-addButton.addEventListener('click', function () {
+addButton.addEventListener('click', () => {
   openPopup(popUpPlace);
 });
 
@@ -73,14 +85,51 @@ popUpCloseBtns.forEach((button) => {
   });
 });
 
+overlays.forEach((overlay) => {
+  overlay.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup')) {
+      closePopup(overlay.closest(".popup"));
+    };
+  });
+});
+
 
 // **** изменение профиля ****
-document.querySelector('.form-edit').addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  profileName.textContent = profileNameInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
-  closePopup(popUpEdit);
-});
+
+const formProfile = document.forms.profile_data;
+const name = formProfile.elements.name;
+const description = formProfile.elements.description;
+
+function editProfile(nameValue, descriptionValue) {
+  profileName.textContent = name.value;
+  profileDescription.textContent = description.value;
+}
+
+// *** валидация формы с информацией профиля
+
+function setEditSubmitButtonState(isFormValid){
+  if (isFormValid) {
+    editSubmit.removeAttribute('disabled');
+    editSubmit.classList.remove('form__button_disabled');
+  }
+  else {
+    editSubmit.setAttribute('disabled', true);
+    editSubmit.classList.add('form__button_disabled');
+  }
+}
+
+formProfile.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    editProfile(name.value, description.value);
+    closePopup(popUpEdit);
+    setEditSubmitButtonState(false)
+  });
+
+  formProfile.addEventListener('input', (evt) => {
+    const isValid = (name.value.length > 2 && description.value.length > 2) && (name.value.length < 40 && description.value.length < 200);
+    setEditSubmitButtonState(isValid);
+  })
+
 
   //***** функция создания карточки *****
 function createPlace(title,link) {
@@ -126,3 +175,10 @@ document.querySelector('.form-add-place').addEventListener('submit',(evt) => {
   placeImgInput.value = '';
   placeNameInput.value = '';
 });
+
+
+
+
+
+
+
