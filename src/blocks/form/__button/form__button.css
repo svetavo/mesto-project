@@ -9,7 +9,7 @@
     font-size: 18px;
     line-height: 1.22;
     font-weight: normal;
-}
+};
 
 @media screen and (max-width: 767px) {
     .form__button {
@@ -22,10 +22,4 @@
 .form__button:hover {
   opacity: 0.8;
   cursor: pointer;
-}
-
-.form__button_disabled {
-  background-color: #E5E5E5;
-  border: 1px solid rgba(196, 196, 196, 1);
-  color: rgba(196, 196, 196, 1);
 }

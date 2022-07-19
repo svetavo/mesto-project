@@ -1,0 +1,10 @@
+.form__input_type_error {
+  border-bottom: 1px solid red;
+  margin-bottom: 5px;
+};
+
+.form__input_type_error::after {
+  color: red;
+  font-size: 12px;
+  line-height: 14.52px;
+}

@@ -1,3 +1,14 @@
+import './styles/index.css';
+const closeImage = new URL('./images/CloseIcon.svg', import.meta.url);
+const likeSymbol = new URL('./images/symbols/like.png', import.meta.url);
+const likeActiveSymbol = new URL('./images/symbols/like_active.png', import.meta.url);
+const pencilSymbol = new URL('./images/symbols/pencil.png', import.meta.url);
+const plusSymbol = new URL('./images/symbols/plus.png', import.meta.url);
+const trashSymbol = new URL('./images/symbols/trash.svg', import.meta.url);
+const logoImage = new URL('./images/logo_header.svg', import.meta.url);
+
+
+
 // **** МАССИВ КАРТОЧЕК ****
 
 const placesCards = [
@@ -51,17 +62,6 @@ const overlays = document.querySelectorAll('.popup');
 // **** ФУНКЦИИ ****
 
 // открытие и закрытие попапов
-// function closeByEscape(evt) {
-//   if (evt.key === 'Escape') {
-//     closePopup(overlay.closest('.popup'));
-//   }
-// }
-
-// overlays.forEach((overlay) => {
-//   overlay.addEventListener("click", () => {
-//     closeByEscape();
-//   });
-// });
 
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
@@ -93,6 +93,69 @@ overlays.forEach((overlay) => {
   });
 });
 
+// ВАЛИДАЦИЯ
+
+const showInputError = (formElement, inputElement, errorMessage) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add('form__input_type_error');
+  errorElement.textContent = errorMessage;
+  // errorElement.classList.add('form__input-error_active');
+};
+
+const hideInputError = (formElement, inputElement) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('form__input_type_error');
+  // errorElement.classList.remove('form__input-error_active');
+  errorElement.textContent = '';
+};
+
+const isValid = (formElement, inputElement) => {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+};
+
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
+  const buttonElement = formElement.querySelector('.form__button');
+
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', function () {
+     isValid(formElement, inputElement);
+     toggleButtonState(inputList, buttonElement);
+    });
+  });
+};
+
+const enableValidation = () => {
+const formList = Array.from(document.querySelectorAll('.form'));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    });
+        setEventListeners(formElement);
+  });
+}
+
+enableValidation();
+
+// состояние кнопки
+
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  })
+};
+
+const toggleButtonState = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('form__button_disabled');
+  } else {
+    buttonElement.classList.remove('form__button_disabled');
+  }
+};
 
 // **** изменение профиля ****
 
@@ -105,33 +168,13 @@ function editProfile(nameValue, descriptionValue) {
   profileDescription.textContent = description.value;
 }
 
-// *** валидация формы с информацией профиля
-
-function setEditSubmitButtonState(isFormValid){
-  if (isFormValid) {
-    editSubmit.removeAttribute('disabled');
-    editSubmit.classList.remove('form__button_disabled');
-  }
-  else {
-    editSubmit.setAttribute('disabled', true);
-    editSubmit.classList.add('form__button_disabled');
-  }
-}
-
 formProfile.addEventListener('submit', (evt) => {
     evt.preventDefault();
     editProfile(name.value, description.value);
     closePopup(popUpEdit);
-    setEditSubmitButtonState(false)
   });
 
-  formProfile.addEventListener('input', (evt) => {
-    const isValid = (name.value.length > 2 && description.value.length > 2) && (name.value.length < 40 && description.value.length < 200);
-    setEditSubmitButtonState(isValid);
-  })
-
-
-  //***** функция создания карточки *****
+//   //***** функция создания карточки *****
 function createPlace(title,link) {
 
   const placeElement = placeTemplate.querySelector('.place').cloneNode(true);   // клонирую шаблон
@@ -140,15 +183,15 @@ function createPlace(title,link) {
   placeElement.querySelector('.place__name').textContent = title;   // передача параметров в карточку
   placeElement.querySelector('.place__img').alt = title;   // передача параметров в карточку
 
-  // лайк
+//   лайк
   placeElement.querySelector('.place__like-button').addEventListener('click', (evt) => {
       evt.target.classList.toggle('place__like-button_active');
     });
-  // удаление
+//   удаление
   placeElement.querySelector('.place__delete-button').addEventListener('click', (evt) => {
       evt.target.closest('.place').remove();
     });
-  // попап
+//   попап
   placeElement.querySelector('.place__img').addEventListener('click', () => {
     openPopup(popUpImage);
     imageContainer.src = link;
@@ -156,29 +199,38 @@ function createPlace(title,link) {
     popupImageTitle.alt = title;
     });
 
-    // возвращаем карточку
+//  возвращаем карточку
   return placeElement;
   };
-  //*****конец функции создания карточки*****
+//   //*****конец функции создания карточки*****
 
   // функция загрузки карточек из массива
   placesCards.forEach((item) => {
   placesItems.append(createPlace(item.title,item.link)); //обращаемся к функции. указываем откуда брать название и ссылку
 });
-  //*****конец функции загрузки карточек из массива*****
+//   //*****конец функции загрузки карточек из массива*****
 
-//добавление карточки через кнопку
-document.querySelector('.form-add-place').addEventListener('submit',(evt) => {
+// //добавление карточки через кнопку
+
+const formPlace = document.forms.new_place;
+
+function setPlaceSubmitButtonState(isFormValid){
+  if (isFormValid) {
+    placeSubmit.removeAttribute('disabled');
+    placeSubmit.classList.remove('form__button_disabled');
+  }
+  else {
+    placeSubmit.setAttribute('disabled', true);
+    placeSubmit.classList.add('form__button_disabled');
+  }
+}
+
+formPlace.addEventListener('submit',(evt) => {
   evt.preventDefault(); //убираем перезагрузку страницы
   placesItems.prepend(createPlace(placeNameInput.value, placeImgInput.value));
   closePopup(popUpPlace); //убираем попап
-  placeImgInput.value = '';
-  placeNameInput.value = '';
+  formPlace.reset();
+  setPlaceSubmitButtonState(false);
 });
-
-
-
-
-
 
 
