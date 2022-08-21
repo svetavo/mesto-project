@@ -1,0 +1,12 @@
+.profile__pic {
+    display: block;
+    max-width: 168.75px;
+    border-radius: 50%;
+    align-self: center;
+}
+
+@media screen and (min-width: 768px) {
+    .profile__pic {
+        margin-right: 30px;
+    }
+}
