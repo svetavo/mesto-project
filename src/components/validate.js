@@ -1,4 +1,12 @@
-import {validateSettings} from './index';
+export const validateSettings = {
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__button",
+  inactiveButtonClass: "form__button_disabled",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__input-error_active"
+};
+
 // ВАЛИДАЦИЯ
 
 const showInputError = (formElement, inputElement, errorMessage, validateSettings) => {
@@ -56,8 +64,5 @@ const toggleButtonState = (inputList, buttonElement, validateSettings) => {
 export const enableValidation = (validateSettings) => {
 const formList = Array.from(document.querySelectorAll(validateSettings.formSelector));
   formList.forEach((formElement) => {
-    // formElement.addEventListener('submit', (evt) => {
-    // evt.preventDefault();
-    // });
       setEventListeners(formElement, validateSettings);
   });}

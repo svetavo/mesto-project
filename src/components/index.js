@@ -1,7 +1,7 @@
 // импорт
 import '../styles/index.css';
-import { enableValidation } from "./validate";
-import { editProfile, setPlaceSubmitButtonState, formProfile, name, description, } from './utils.js';
+import { enableValidation, validateSettings } from "./validate";
+import { editProfile, setPlaceSubmitButtonState, formProfile, name, description, } from './utils';
 import { createPlace, placeImgInput, placeNameInput} from "./card";
 import { openPopup, closePopup } from './modal';
 import { newInfo, newCard, renderCards, renderInfo } from './api';
@@ -27,14 +27,7 @@ export const placesItems = document.querySelector('.places__items');
 const editSubmit = document.querySelector('.form__button_edit')
 const overlays = document.querySelectorAll('.popup');
 const formPlace = document.forms.new_place;
-export const validateSettings = {
-  formSelector: ".form",
-  inputSelector: ".form__input",
-  submitButtonSelector: ".form__button",
-  inactiveButtonClass: "form__button_disabled",
-  inputErrorClass: "form__input_type_error",
-  errorClass: "form__input-error_active"
-};
+
 
 
 // слушатаели
