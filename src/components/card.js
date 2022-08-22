@@ -1,4 +1,4 @@
-import { openPopup, closePopupByEsc } from "./modal";
+import { openPopup, closePopup } from "./modal";
 
 // константы
 const placeTemplate = document.querySelector('#place-item').content;
@@ -30,11 +30,6 @@ function createPlace(title,link) {
 //   попап
   placeElement.querySelector('.place__img').addEventListener('click', () => {
     openPopup(popUpImage);
-    addEventListener('keydown', function(e) {
-      if(e.key === 'Escape') {
-        closePopup(popUpImage)
-      }
-    });
     imageContainer.src = link;
     popupImageTitle.textContent = title;
     popupImageTitle.alt = title;

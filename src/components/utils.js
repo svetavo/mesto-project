@@ -7,21 +7,6 @@ const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const avatar = document.querySelector('.profile__pic');
 
-// состояние кнопки
-
-const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  })
-};
-
-const toggleButtonState = (inputList, buttonElement) => {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('form__button_disabled');
-  } else {
-    buttonElement.classList.remove('form__button_disabled');
-  }
-};
 
 function setPlaceSubmitButtonState(isFormValid){
   if (isFormValid) {
@@ -41,4 +26,4 @@ function editProfile(nameValue, descriptionValue) {
   profileDescription.textContent = description.value;
 }
 
-export { hasInvalidInput, toggleButtonState, editProfile, setPlaceSubmitButtonState, formProfile, name, description, profileName, profileDescription, avatar };
+export { editProfile, setPlaceSubmitButtonState, formProfile, name, description, profileName, profileDescription, avatar };

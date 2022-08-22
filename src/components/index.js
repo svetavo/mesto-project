@@ -1,8 +1,8 @@
 // импорт
 import '../styles/index.css';
-import {showInputError, hideInputError, isValid, setEventListeners, enableValidation } from "./validate";
-import { hasInvalidInput, toggleButtonState, editProfile, setPlaceSubmitButtonState, formProfile, name, description, profileName, profileDescription} from './utils.js';
-import {createPlace, placeTemplate, placeImgInput, placeNameInput} from "./card";
+import { enableValidation } from "./validate";
+import { editProfile, setPlaceSubmitButtonState, formProfile, name, description, } from './utils.js';
+import { createPlace, placeImgInput, placeNameInput} from "./card";
 import { openPopup, closePopup } from './modal';
 import { newInfo, newCard, renderCards, renderInfo } from './api';
 
@@ -27,25 +27,23 @@ export const placesItems = document.querySelector('.places__items');
 const editSubmit = document.querySelector('.form__button_edit')
 const overlays = document.querySelectorAll('.popup');
 const formPlace = document.forms.new_place;
+export const validateSettings = {
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__button",
+  inactiveButtonClass: "form__button_disabled",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__input-error_active"
+};
 
 
 // слушатаели
 editButton.addEventListener('click', () => {
   openPopup(popUpEdit);
-  addEventListener('keydown', function(e) {
-    if(e.key === 'Escape') {
-      closePopup(popUpEdit)
-    }
-  });
 });
 
 addButton.addEventListener('click', () => {
   openPopup(popUpPlace);
-  addEventListener('keydown', function(e) {
-    if(e.key === 'Escape') {
-      closePopup(popUpPlace)
-    }
-  });
 });
 
 popUpCloseBtns.forEach((button) => {
@@ -81,4 +79,4 @@ formPlace.addEventListener('submit',(evt) => {
 
 renderCards();
 renderInfo();
-enableValidation();
+enableValidation(validateSettings);
