@@ -12,7 +12,11 @@ function openPopup(popupElement) {
 
 function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
-  removeEventListener;
+  removeEventListener('keydown', function(e) {
+    if(e.key === 'Escape') {
+      closePopup(popupElement)
+    };
+  });
 };
 
 
