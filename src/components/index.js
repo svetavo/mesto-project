@@ -1,7 +1,7 @@
 // импорт
 import '../styles/index.css';
-import { enableValidation, validateSettings } from "./validate";
-import { editProfile, setPlaceSubmitButtonState, formProfile, name, description, } from './utils';
+import { enableValidation } from "./validate";
+import { editProfile, setPlaceSubmitButtonState, formProfile, name, description, validitySettings } from './utils';
 import { createPlace, placeImgInput, placeNameInput} from "./card";
 import { openPopup, closePopup } from './modal';
 import { newInfo, newCard, renderCards, renderInfo } from './api';
@@ -24,11 +24,8 @@ const popUpPlace = document.querySelector('.popup-add-place');
 const popUpCloseBtns = document.querySelectorAll('.popup__close-button');
 export const placeSubmit = document.querySelector('.form__button_place');
 export const placesItems = document.querySelector('.places__items');
-const editSubmit = document.querySelector('.form__button_edit')
 const overlays = document.querySelectorAll('.popup');
 const formPlace = document.forms.new_place;
-
-
 
 // слушатаели
 editButton.addEventListener('click', () => {
@@ -53,7 +50,6 @@ overlays.forEach((overlay) => {
   });
 });
 
-
 formProfile.addEventListener('submit', (evt) => {
   evt.preventDefault();
   newInfo();
@@ -72,4 +68,4 @@ formPlace.addEventListener('submit',(evt) => {
 
 renderCards();
 renderInfo();
-enableValidation(validateSettings);
+enableValidation(validitySettings);

@@ -6,6 +6,15 @@ const description = formProfile.elements.description;
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const avatar = document.querySelector('.profile__pic');
+export const validitySettings = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button',
+  inactiveButtonClass: 'form__button_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+};
+
 
 
 function setPlaceSubmitButtonState(isFormValid){

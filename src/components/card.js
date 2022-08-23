@@ -1,10 +1,10 @@
-import { openPopup, closePopup } from "./modal";
+import { openPopup } from "./modal";
 
 // константы
 const placeTemplate = document.querySelector('#place-item').content;
 const placeImgInput = document.querySelector('#placeImg');
 const placeNameInput = document.querySelector('#placeName');
-const placeLikesCounter = document.querySelector('.place__like-counter');
+// const placeLikesCounter = document.querySelector('.place__like-counter');
 const popUpImage = document.querySelector('.popup__image');
 const imageContainer = document.querySelector('.popup__image-content');
 const popupImageTitle = document.querySelector('.popup__image-title');
