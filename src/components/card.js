@@ -1,16 +1,8 @@
-import { openPopup } from "./modal";
-
-// константы
-const placeTemplate = document.querySelector('#place-item').content;
-const placeImgInput = document.querySelector('#placeImg');
-const placeNameInput = document.querySelector('#placeName');
-// const placeLikesCounter = document.querySelector('.place__like-counter');
-const popUpImage = document.querySelector('.popup__image');
-const imageContainer = document.querySelector('.popup__image-content');
-const popupImageTitle = document.querySelector('.popup__image-title');
+import { openPopup } from './modal';
+import { imageContainer, popupImageTitle, placeTemplate, popUpImage } from './utils';
 
 //  функция создания карточки
-function createPlace(title,link) {
+export function createPlace(title,link) {
 
   const placeElement = placeTemplate.querySelector('.place').cloneNode(true);   // клонирую шаблон
 
@@ -27,14 +19,14 @@ function createPlace(title,link) {
   placeElement.querySelector('.place__delete-button').addEventListener('click', (evt) => {
       evt.target.closest('.place').remove();
     });
+
 //   попап
   placeElement.querySelector('.place__img').addEventListener('click', () => {
     openPopup(popUpImage);
     imageContainer.src = link;
     popupImageTitle.textContent = title;
     popupImageTitle.alt = title;
-    });
-  return placeElement;
-  };
-
-export { createPlace, placeTemplate, placeImgInput, placeNameInput };
+  });
+  // возвращаем карточку
+return placeElement;
+};

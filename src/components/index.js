@@ -1,12 +1,10 @@
 // импорт
 import '../styles/index.css';
-import { enableValidation } from "./validate";
-import { editProfile, setPlaceSubmitButtonState, formProfile, name, description, validitySettings } from './utils';
-import { createPlace, placeImgInput, placeNameInput} from "./card";
+import { enableValidation, setPlaceSubmitButtonState } from "./validate";
+import { formProfile, formPlace, editButton, popUpEdit, addButton, popUpPlace, popUpCloseBtns, placeImgInput, placeNameInput, placesItems, overlays, profileName, profileDescription, profileNameInput, profileDescriptionInput, placesCards, validitySettings } from './utils';
+import { createPlace } from "./card";
 import { openPopup, closePopup } from './modal';
-import { newInfo, newCard, renderCards, renderInfo } from './api';
 
-//изображения
 const closeImage = new URL('../images/CloseIcon.svg', import.meta.url);
 const likeSymbol = new URL('../images/symbols/like.png', import.meta.url);
 const likeActiveSymbol = new URL('../images/symbols/like_active.png', import.meta.url);
@@ -15,17 +13,6 @@ const plusSymbol = new URL('../images/symbols/plus.png', import.meta.url);
 const trashSymbol = new URL('../images/symbols/trash.svg', import.meta.url);
 const logoImage = new URL('../images/logo_header.svg', import.meta.url);
 
-
-// *** селекторы ***
-const editButton = document.querySelector('.profile__edit-button');
-const popUpEdit = document.querySelector('.popup-edit');
-const addButton = document.querySelector('.profile__add-button');
-const popUpPlace = document.querySelector('.popup-add-place');
-const popUpCloseBtns = document.querySelectorAll('.popup__close-button');
-export const placeSubmit = document.querySelector('.form__button_place');
-export const placesItems = document.querySelector('.places__items');
-const overlays = document.querySelectorAll('.popup');
-const formPlace = document.forms.new_place;
 
 // слушатаели
 editButton.addEventListener('click', () => {
@@ -52,20 +39,22 @@ overlays.forEach((overlay) => {
 
 formProfile.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  newInfo();
-  editProfile(name.value, description.value);
+  profileName.textContent = profileNameInput.value;
+  profileDescription.textContent = profileDescriptionInput.value;
   closePopup(popUpEdit);
 });
 
 formPlace.addEventListener('submit',(evt) => {
   evt.preventDefault();
-  newCard();
   placesItems.prepend(createPlace(placeNameInput.value, placeImgInput.value));
   closePopup(popUpPlace);
   formPlace.reset();
   setPlaceSubmitButtonState(false);
 });
 
-renderCards();
-renderInfo();
+// загрузка массива карточек
+placesCards.forEach((item) => {
+  placesItems.append(createPlace(item.name,item.link))
+})
+
 enableValidation(validitySettings);

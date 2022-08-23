@@ -1,5 +1,15 @@
-import {validitySettings} from './utils';
+import {validitySettings, placeSubmit} from './utils';
 
+export function setPlaceSubmitButtonState(isValid){
+  if (isValid) {
+    placeSubmit.removeAttribute('disabled');
+    placeSubmit.classList.remove('form__button_disabled');
+  }
+  else {
+    placeSubmit.setAttribute('disabled', true);
+    placeSubmit.classList.add('form__button_disabled');
+  }
+};
 
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -16,10 +26,16 @@ const hideInputError = (formElement, inputElement) => {
 };
 
 const isValid = (formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage, validitySettings);
+  if (inputElement.validity.patternMismatch) {
+    inputElement.setCustomValidity(inputElement.dataset.errorMessage);
   } else {
-    hideInputError(formElement, inputElement, validitySettings);
+    inputElement.setCustomValidity("");
+  }
+  
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
   }
 };
 
@@ -28,9 +44,8 @@ const setEventListeners = (formElement) => {
   const buttonElement = formElement.querySelector(validitySettings.submitButtonSelector);
 
   inputList.forEach((inputElement) => {
-    toggleButtonState(inputList, buttonElement);
     inputElement.addEventListener('input', function () {
-     isValid(formElement, inputElement, validitySettings);
+     isValid(formElement, inputElement);
      toggleButtonState(inputList, buttonElement);
     });
   });
@@ -47,16 +62,16 @@ const hasInvalidInput = (inputList) => {
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(validitySettings.inactiveButtonClass);
-    buttonElement.setAttribute('disabled', true);
+    // buttonElement.setAttribute('disabled', true);
   } else {
     buttonElement.classList.remove(validitySettings.inactiveButtonClass);
-    buttonElement.removeAttribute('disabled');
+    // buttonElement.removeAttribute('disabled');
   }
 };
 
 export const enableValidation = () => {
 const formList = Array.from(document.querySelectorAll(validitySettings.formSelector));
   formList.forEach((formElement) => {
-      setEventListeners(formElement, validitySettings);
+      setEventListeners(formElement);
   });
 }
