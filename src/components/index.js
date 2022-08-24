@@ -30,9 +30,9 @@ popups.forEach((popup) => {
 
 // редактировать профиль
 editButton.addEventListener('click', () => {
-  openPopup(popUpEdit);
   profileNameInput.value = profileName.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
+  openPopup(popUpEdit);
 });
 
 formProfile.addEventListener('submit', (evt) => {
