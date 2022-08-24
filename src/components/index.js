@@ -6,14 +6,13 @@ import { createPlace } from "./card";
 import { openPopup, closePopup} from './modal';
 
 // изображения
-// const closeImage = new URL('../images/CloseIcon.svg', import.meta.url);
 const likeSymbol = new URL('../images/symbols/like.png', import.meta.url);
 const likeActiveSymbol = new URL('../images/symbols/like_active.png', import.meta.url);
 const pencilSymbol = new URL('../images/symbols/pencil.png', import.meta.url);
 const plusSymbol = new URL('../images/symbols/plus.png', import.meta.url);
 const trashSymbol = new URL('../images/symbols/trash.svg', import.meta.url);
 const logoImage = new URL('../images/logo_header.svg', import.meta.url);
-const CloseSymbol = new URL('../images/closeicon.svg', import.meta.url);
+const closeImage = new URL('../images/closeicon.svg', import.meta.url);
 
 // СЛУШАТЕЛИ
 
@@ -53,7 +52,6 @@ formPlace.addEventListener('submit',(evt) => {
   placesItems.prepend(createPlace(placeNameInput.value, placeImgInput.value));
   closePopup(popUpPlace);
   formPlace.reset();
-  toggleButtonState(false);
 });
 
 // загрузка массива карточек
