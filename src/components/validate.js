@@ -31,7 +31,7 @@ const isValid = (formElement, inputElement) => {
   } else {
     inputElement.setCustomValidity("");
   }
-  
+
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
@@ -62,14 +62,14 @@ const hasInvalidInput = (inputList) => {
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(validitySettings.inactiveButtonClass);
-    // buttonElement.setAttribute('disabled', true);
+    buttonElement.setAttribute('disabled', true);
   } else {
     buttonElement.classList.remove(validitySettings.inactiveButtonClass);
-    // buttonElement.removeAttribute('disabled');
+    buttonElement.removeAttribute('disabled');
   }
 };
 
-export const enableValidation = () => {
+export const enableValidation = (validitySettings) => {
 const formList = Array.from(document.querySelectorAll(validitySettings.formSelector));
   formList.forEach((formElement) => {
       setEventListeners(formElement);

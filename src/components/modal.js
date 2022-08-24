@@ -3,21 +3,19 @@
 
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
-  addEventListener('keydown', function(e) {
-    if(e.key === 'Escape') {
-      closePopup(popupElement)
-    };
-  });
+  document.addEventListener('keydown', closeByEscape);
 };
 
 function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
-  removeEventListener('keydown', function(e) {
-    if(e.key === 'Escape') {
-      closePopup(popupElement)
-    };
-  });
+  document.removeEventListener('keydown', closeByEscape);
 };
 
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+};
 
 export { openPopup, closePopup };

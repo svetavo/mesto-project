@@ -5,10 +5,11 @@ import { imageContainer, popupImageTitle, placeTemplate, popUpImage } from './ut
 export function createPlace(title,link) {
 
   const placeElement = placeTemplate.querySelector('.place').cloneNode(true);   // клонирую шаблон
+  const cardImage = placeElement.querySelector('.place__img');
 
-  placeElement.querySelector('.place__img').src = link;   // передача параметров в карточку
+  cardImage.src = link;   // передача параметров в карточку
   placeElement.querySelector('.place__name').textContent = title;   // передача параметров в карточку
-  placeElement.querySelector('.place__img').alt = title;   // передача параметров в карточку
+  cardImage.alt = title;   // передача параметров в карточку
 
 //   лайк
   placeElement.querySelector('.place__like-button').addEventListener('click', (evt) => {
@@ -21,11 +22,11 @@ export function createPlace(title,link) {
     });
 
 //   попап
-  placeElement.querySelector('.place__img').addEventListener('click', () => {
+cardImage.addEventListener('click', () => {
     openPopup(popUpImage);
     imageContainer.src = link;
     popupImageTitle.textContent = title;
-    popupImageTitle.alt = title;
+    imageContainer.alt = title;
   });
   // возвращаем карточку
 return placeElement;
