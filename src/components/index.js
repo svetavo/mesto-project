@@ -50,9 +50,10 @@ addButton.addEventListener('click', () => {
 formPlace.addEventListener('submit',(evt) => {
   evt.preventDefault();
   placesItems.prepend(createPlace(placeNameInput.value, placeImgInput.value));
-  closePopup(popUpPlace);
   formPlace.reset();
   placeSubmit.classList.add('form__button_disabled');
+  placeSubmit.disabled = true;
+  closePopup(popUpPlace);
 });
 
 // загрузка массива карточек
