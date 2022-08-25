@@ -17,14 +17,6 @@ export const profileDescriptionInput = document.querySelector('#user_description
 export const formProfile = document.forms.profile_data;
 export const name = formProfile.elements.name;
 export const description = formProfile.elements.description;
-// export const validitySettings = {
-//   formSelector: '.form',
-//   inputSelector: '.form__input',
-//   submitButtonSelector: '.form__button',
-//   inactiveButtonClass: 'form__button_disabled',
-//   inputErrorClass: 'form__input_type_error',
-//   errorClass: 'form__input-error_active'
-// };
 
 //изображения
 const barcelona = new URL('../images/places/barcelona.jpeg', import.meta.url);

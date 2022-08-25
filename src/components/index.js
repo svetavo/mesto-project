@@ -1,7 +1,7 @@
 // импорт
 import '../styles/index.css';
 import { enableValidation, toggleButtonState } from "./validate";
-import { formProfile, formPlace, editButton, popUpEdit, addButton, popUpPlace, placeImgInput, placeNameInput, placesItems, profileName, profileDescription, profileNameInput, profileDescriptionInput, placesCards, validitySettings, popups } from './utils';
+import { formProfile, formPlace, editButton, popUpEdit, addButton, popUpPlace, placeImgInput, placeNameInput, placesItems, profileName, profileDescription, profileNameInput, profileDescriptionInput, placesCards, popups, placeSubmit } from './utils';
 import { createPlace } from "./card";
 import { openPopup, closePopup} from './modal';
 
@@ -52,6 +52,7 @@ formPlace.addEventListener('submit',(evt) => {
   placesItems.prepend(createPlace(placeNameInput.value, placeImgInput.value));
   closePopup(popUpPlace);
   formPlace.reset();
+  placeSubmit.classList.add('form__button_disabled');
 });
 
 // загрузка массива карточек
