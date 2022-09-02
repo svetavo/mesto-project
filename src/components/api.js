@@ -1,69 +1,132 @@
 // импорт
-import { profileName, profileDescription, avatar, name, description} from "./utils.js";
-import { placesItems } from "./index";
-import { createPlace, placeImgInput, placeNameInput } from "./card";
+import {  avatarUrl, name, description, placeImgInput, placeNameInput, profileDescription, profileName, avatar} from "./utils.js";
 
-//  функции загрузки карточек с сервера*****
+// авторизация
+export const config = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-14',
+  headers: {
+    authorization: 'ab97a0b5-b85e-4d41-b8f5-c80c0719b979',
+    'Content-Type': 'application/json'
+  }
+}
 
-// export function renderCards() {
-//   return fetch('https://nomoreparties.co/v1/plus-cohort-14/cards', {
-//       headers: {
-//         authorization: 'ab97a0b5-b85e-4d41-b8f5-c80c0719b979'
-//       }
-//     })
-//     .then((res) => {
-//       return res.json()
-//     })
-//     .then((data) => {
-//   data.forEach((item) => {
-//     placesItems.append(createPlace(item.name,item.link, item.likes)); //обращаемся к функции. указываем откуда брать название и ссылку
-//   });
-//   });
-//   }
+export const serverMe = '1cf9c97e04e9e9f696609d1b';
+
+//  функции загрузки исходных карточек с сервера
+export const renderCards = () => {
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers,
+    })
+    .then((res) => {
+      if (res.ok) {
+      return res.json()
+      }
+    })
+    .catch(() => {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+  }
 
 // // отправка новой карточки на сервер
-// export function newCard() {
-//   fetch('https://nomoreparties.co/v1/plus-cohort-14/cards', {
-//     method: 'POST',
-//     headers: {
-//       authorization: 'ab97a0b5-b85e-4d41-b8f5-c80c0719b979',
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       name: placeNameInput.value,
-//       link: placeImgInput.value
-//     })
-//   });
-// }
+export const createCard = () => {
+  return fetch(`${config.baseUrl}/cards`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({
+      name: placeNameInput.value,
+      link: placeImgInput.value
+    })
+  })
+  .then((res) => {
+    if (res.ok) {
+    return res.json()
+    }
+  })
+  .catch(() => {
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+}
 
 // загрузка инфо о пользователе с сервера
-// export function renderInfo() {
-//     return fetch('https://nomoreparties.co/v1/plus-cohort-14/users/me', {
-//       headers: {
-//         authorization: 'ab97a0b5-b85e-4d41-b8f5-c80c0719b979'
-//       }
-//     })
-//     .then((res) => {
-//       return res.json()
-//     })
-//     .then((data) => {
-//       profileName.textContent = data.name;
-//       profileDescription.textContent = data.about;
-//       avatar.src = data.avatar;
-//       });
-//   }
+export const renderInfo = () => {
+    return fetch(`${config.baseUrl}/users/me`, {
+    headers: config.headers,
+    })
+    .then((res) => {
+      return res.json()
+    })
+    .catch(() => {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+  }
 
-// // загрузка инфо о пользователе на сервер
-// export function newInfo() {
-//   fetch('https://nomoreparties.co/v1/plus-cohort-14/users/me', {
-//     method: 'PATCH',
-//     headers: {
-//       authorization: 'ab97a0b5-b85e-4d41-b8f5-c80c0719b979',
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       name: name.value,
-//       about: description.value
-//     })
-//   });
-// }
+// загрузка инфо о пользователе на сервер
+export const newInfo = () => {
+  fetch(`${config.baseUrl}/users/me`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      name: name.value,
+      about: description.value
+    })
+  });
+}
+
+// обновление аватара
+export const avatarUpdate = () => {
+  fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar: avatarUrl.value
+    })
+  })
+}
+
+// удаление карточки с сервера
+export const cardDelete = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers,
+  })
+  .then((res) => {
+    if (res.ok) {
+    return res.json()
+    }
+  })
+  .catch(() => {
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+}
+
+// лайк
+export const likeCard = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'PUT',
+    headers: config.headers,
+  })
+  .then((res) => {
+    if (res.ok) {
+    return res.json()
+    }
+  })
+  .catch(() => {
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+}
+
+export const likeCardRemove = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers,
+  })
+  .then((res) => {
+    if (res.ok) {
+    return res.json()
+    }
+  })
+  .catch(() => {
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+}
+
