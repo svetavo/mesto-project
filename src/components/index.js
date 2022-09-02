@@ -7,13 +7,13 @@ import { openPopup, closePopup} from './modal';
 import { renderCards, renderInfo, newInfo, createCard, serverMe } from './api';
 
 // изображения
-// const closeImage = new URL('../images/CloseIcon.svg', import.meta.url);
 const likeSymbol = new URL('../images/symbols/like.png', import.meta.url);
 const likeActiveSymbol = new URL('../images/symbols/like_active.png', import.meta.url);
 const pencilSymbol = new URL('../images/symbols/pencil.png', import.meta.url);
 const plusSymbol = new URL('../images/symbols/plus.png', import.meta.url);
 const trashSymbol = new URL('../images/symbols/trash.svg', import.meta.url);
 const logoImage = new URL('../images/logo_header.svg', import.meta.url);
+const closeImage = new URL('../images/closeicon.svg', import.meta.url);
 
 let userId = serverMe;
 
@@ -71,7 +71,6 @@ formPlace.addEventListener('submit',(evt) => {
   evt.preventDefault();
   renderLoading(true);
   createCard()
-  // почему то андейфайд?? пост уходит на сервер, а дальше все...
   .then((result) => {
     const myCard = createPlace(result.name, result.link, result.likes, result._id, result.owner)
     placesItems.prepend(myCard);
@@ -91,6 +90,7 @@ renderInfo()
 })
 .catch((err) => {
   console.log(err);
+
 });
 
 // загрузка массива карточек
