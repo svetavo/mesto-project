@@ -1,6 +1,3 @@
-// импорт
-import {  avatarUrl, name, description, placeImgInput, placeNameInput, profileDescription, profileName, avatar} from "./utils.js";
-
 // авторизация
 export const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-14',
@@ -10,41 +7,34 @@ export const config = {
   }
 }
 
-export const serverMe = '1cf9c97e04e9e9f696609d1b';
+// проверка ответа от сервера
+export function checkResponse(res) {
+  if (res.ok) {
+      return res.json();
+  }
+  return Promise.reject(`Ошибка ${res.status}`);
+}
+
 
 //  функции загрузки исходных карточек с сервера
 export const renderCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers,
     })
-    .then((res) => {
-      if (res.ok) {
-      return res.json()
-      }
-    })
-    .catch(() => {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(checkResponse)
   }
 
 // // отправка новой карточки на сервер
-export const createCard = () => {
+export const createCard = (name, link) => {
   return fetch(`${config.baseUrl}/cards`, {
     method: 'POST',
     headers: config.headers,
     body: JSON.stringify({
-      name: placeNameInput.value,
-      link: placeImgInput.value
+      'name': name,
+      'link': link
     })
   })
-  .then((res) => {
-    if (res.ok) {
-    return res.json()
-    }
-  })
-  .catch(() => {
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+  .then(checkResponse)
 }
 
 // загрузка инфо о пользователе с сервера
@@ -52,35 +42,32 @@ export const renderInfo = () => {
     return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers,
     })
-    .then((res) => {
-      return res.json()
-    })
-    .catch(() => {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(checkResponse)
   }
 
 // загрузка инфо о пользователе на сервер
-export const newInfo = () => {
-  fetch(`${config.baseUrl}/users/me`, {
+export const newInfo = (name, about) => {
+  return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
-      name: name.value,
-      about: description.value
+      'name': name,
+      'about': about
     })
-  });
+  })
+  .then(checkResponse)
 }
 
 // обновление аватара
-export const avatarUpdate = () => {
-  fetch(`${config.baseUrl}/users/me/avatar`, {
+export const avatarUpdate = (avatar) => {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
-      avatar: avatarUrl.value
+      'avatar': avatar
     })
   })
+  .then(checkResponse)
 }
 
 // удаление карточки с сервера
@@ -89,14 +76,7 @@ export const cardDelete = (cardId) => {
     method: 'DELETE',
     headers: config.headers,
   })
-  .then((res) => {
-    if (res.ok) {
-    return res.json()
-    }
-  })
-  .catch(() => {
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+  .then(checkResponse)
 }
 
 // лайк
@@ -105,14 +85,7 @@ export const likeCard = (cardId) => {
     method: 'PUT',
     headers: config.headers,
   })
-  .then((res) => {
-    if (res.ok) {
-    return res.json()
-    }
-  })
-  .catch(() => {
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+  .then(checkResponse)
 }
 
 export const likeCardRemove = (cardId) => {
@@ -120,13 +93,6 @@ export const likeCardRemove = (cardId) => {
     method: 'DELETE',
     headers: config.headers,
   })
-  .then((res) => {
-    if (res.ok) {
-    return res.json()
-    }
-  })
-  .catch(() => {
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+  .then(checkResponse)
 }
 
