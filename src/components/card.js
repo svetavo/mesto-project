@@ -1,10 +1,10 @@
-import { cardDelete, likeCard, likeCardRemove, serverMe } from './api';
+import { cardDelete, likeCard, likeCardRemove } from './api';
 import { openPopup } from './modal';
 import { imageContainer, popupImageTitle, placeTemplate, popUpImage } from './utils';
 
 
 //  функция создания карточки
-export function createPlace(name, link, likes, _id, owner) {
+export function createPlace(name, link, likes, _id, owner, userId, likeThisCard, dislikeThisCard) {
 
   const placeElement = placeTemplate.querySelector('.place').cloneNode(true);   // клонирую шаблон
   const cardImage = placeElement.querySelector('.place__img');
@@ -17,27 +17,17 @@ export function createPlace(name, link, likes, _id, owner) {
   likeCounter.textContent = likes.length;
 
 //   лайк
-likeBtn.addEventListener('click', (evt) => {
-      evt.target.classList.toggle('place__like-button_active');
-      likeCard(_id);
-    });
+likeBtn.addEventListener("click", checkLike(placeElement, _id, likeCounter));
 
-likeBtn.addEventListener('click', () => {
-      if (likes.some((user) => user._id === serverMe)) {
-        likeCardRemove(_id);
-      }
-    })
+if (likes.some((user) => user._id === userId)) {
+  likeBtn.classList.add('place__like-button_active')
+}
 
-if (owner._id !== serverMe) {
+//   удаление
+if (owner._id !== userId) {
   placeElement.querySelector('.place__delete-button').classList.add('place__delete-button_disabled')
 }
 
-if (likes.some((user) => user._id === serverMe)) {
-  placeElement.querySelector('.place__like-button').classList.add('place__like-button_active');
-}
-
-
-//   удаление
   placeElement.querySelector('.place__delete-button').addEventListener('click', (evt) => {
     cardDelete(_id);
     evt.target.closest('.place').remove();
@@ -54,14 +44,32 @@ cardImage.addEventListener('click', () => {
 return placeElement;
 };
 
-// function showDelete() {
-//   if (owner._id !== serverMe) {
-//     placeElement.querySelector('.place__delete-button').classList.add('place__delete-button_disabled')
-//   }
-// }
+// лайк
+function likeThisCard (likeBtn, _id, likeCounter) {
+  likeCard(_id)
+  .then((res) => {
+    likeCounter.textContent = res.likes.length;
+    likeBtn.classList.add('place__like-button_active');
+  })
+  .catch((err) => console.log(err));
+}
 
-// function showLikes() {
-//   if (likes.some((user) => user._id === serverMe)) {
-//     placeElement.querySelector('.place__like-button').classList.add('place__like-button_active');
-//   }
-// }
+// дизлайк
+function dislikeThisCard (likeBtn, _id, likeCounter) {
+  likeCardRemove(_id)
+  .then((res) => {
+    likeCounter.textContent = res.likes.length;
+    likeBtn.classList.remove('place__like-button_active');
+  })
+  .catch((err) => console.log(err));
+}
+
+// проверка лайка
+const checkLike = (placeElement, _id, likeCounter) => (evt) => {
+  const likeBtn = placeElement.querySelector(".place__like-button");
+  if (likeBtn.classList.contains("place__like-button_active")) {
+    dislikeThisCard(likeBtn, _id, likeCounter);
+  } else {
+    likeThisCard(likeBtn, _id, likeCounter);
+  }
+};

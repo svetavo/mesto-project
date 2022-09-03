@@ -65,8 +65,8 @@
         <h2 class="popup__title">Обновить аватар</h2>
         <form class="form" method="post" name="avatar">
           <fieldset class="form__avatar">
-            <input class="form__input form__input-link" type="url" id="avatarUrl" name="avatar" placeholder="Ссылка на картинку" required>
-            <span class="form__input-error_active avatar-error" id="'avatar-input-error"></span>
+            <input class="form__input" type="url" id="avatarUrl" name="avatar" placeholder="Ссылка на картинку" required>
+            <span class="form__input-error_active avatarUrl-error" id="'avatar-input-error"></span>
           </fieldset>
 
           <button type="submit" class="form__button form__button_avatar">Сохранить</button>
@@ -94,7 +94,6 @@
     <div class="popup popup__image ">
       <div class="popup__image-container">
         <button type="button" class="popup__close-button" aria-label="Закрыть окно"></button>
-        <!-- у меня есть крестик, я уже все перепроверила 100 раз, не понимаю, почему у вас его нет :( ) -->
         <img class="popup__image-content" alt="img-alt">
         <h3 class="popup__image-title place__name"></h3>
       </div>
