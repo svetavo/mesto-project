@@ -5,7 +5,7 @@ import {
   popupImageTitle,
   placeTemplate,
   popUpImage,
-} from "./utils";
+} from "./constants";
 
 //  функция создания карточки
 export function createPlace(

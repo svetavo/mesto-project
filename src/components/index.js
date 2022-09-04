@@ -2,6 +2,10 @@
 import "../styles/index.css";
 import { enableValidation } from "./validate";
 import {
+  renderLoading,
+  disableButton
+} from "./utils";
+import {
   avatarUrl,
   avatarButton,
   formProfile,
@@ -21,10 +25,8 @@ import {
   popups,
   formAvatar,
   avatar,
-  renderLoading,
-  validitySettings,
-  disableButton
-} from "./utils";
+  validitySettings
+} from './constants';
 import { createPlace } from "./card";
 import { openPopup, closePopup } from "./modal";
 import {
@@ -33,7 +35,6 @@ import {
   newInfo,
   createCard,
   avatarUpdate,
-  likeCardRemove,
 } from "./api";
 
 // изображения
