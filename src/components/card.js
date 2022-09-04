@@ -1,67 +1,88 @@
-import { cardDelete, likeCard, likeCardRemove } from './api';
-import { openPopup } from './modal';
-import { imageContainer, popupImageTitle, placeTemplate, popUpImage } from './utils';
-
+import { cardDelete, likeCard, likeCardRemove } from "./api";
+import { openPopup } from "./modal";
+import {
+  imageContainer,
+  popupImageTitle,
+  placeTemplate,
+  popUpImage,
+} from "./utils";
 
 //  функция создания карточки
-export function createPlace(name, link, likes, _id, owner, userId, likeThisCard, dislikeThisCard) {
+export function createPlace(
+  name,
+  link,
+  likes,
+  _id,
+  owner,
+  userId,
+  likeThisCard,
+  dislikeThisCard
+) {
+  const placeElement = placeTemplate.querySelector(".place").cloneNode(true); // клонирую шаблон
+  const cardImage = placeElement.querySelector(".place__img");
+  const likeCounter = placeElement.querySelector(".place__like-counter");
+  const likeBtn = placeElement.querySelector(".place__like-button");
 
-  const placeElement = placeTemplate.querySelector('.place').cloneNode(true);   // клонирую шаблон
-  const cardImage = placeElement.querySelector('.place__img');
-  const likeCounter = placeElement.querySelector('.place__like-counter');
-  const likeBtn = placeElement.querySelector('.place__like-button');
-
-  cardImage.src = link;   // передача параметров в карточку
-  placeElement.querySelector('.place__name').textContent = name;   // передача параметров в карточку
-  cardImage.alt = name;   // передача параметров в карточку
+  cardImage.src = link; // передача параметров в карточку
+  placeElement.querySelector(".place__name").textContent = name; // передача параметров в карточку
+  cardImage.alt = name; // передача параметров в карточку
   likeCounter.textContent = likes.length;
 
-//   лайк
-likeBtn.addEventListener("click", checkLike(placeElement, _id, likeCounter));
+  //   лайк
+  likeBtn.addEventListener("click", checkLike(placeElement, _id, likeCounter));
 
-if (likes.some((user) => user._id === userId)) {
-  likeBtn.classList.add('place__like-button_active')
-}
+  if (likes.some((user) => user._id === userId)) {
+    likeBtn.classList.add("place__like-button_active");
+  }
 
-//   удаление
-if (owner._id !== userId) {
-  placeElement.querySelector('.place__delete-button').classList.add('place__delete-button_disabled')
-}
+  //   удаление
+  if (owner._id !== userId) {
+    placeElement
+      .querySelector(".place__delete-button")
+      .classList.add("place__delete-button_disabled");
+  }
 
-  placeElement.querySelector('.place__delete-button').addEventListener('click', (evt) => {
-    cardDelete(_id);
-    evt.target.closest('.place').remove();
+  placeElement
+    .querySelector(".place__delete-button")
+    .addEventListener("click", (evt) => {
+      cardDelete(_id)
+        .then(() => {
+          evt.target.closest(".place").remove();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     });
 
-//   попап
-cardImage.addEventListener('click', () => {
+  //   попап
+  cardImage.addEventListener("click", () => {
     openPopup(popUpImage);
     imageContainer.src = link;
     popupImageTitle.textContent = name;
     imageContainer.alt = name;
   });
   // возвращаем карточку
-return placeElement;
-};
+  return placeElement;
+}
 
 // лайк
-function likeThisCard (likeBtn, _id, likeCounter) {
+function likeThisCard(likeBtn, _id, likeCounter) {
   likeCard(_id)
-  .then((res) => {
-    likeCounter.textContent = res.likes.length;
-    likeBtn.classList.add('place__like-button_active');
-  })
-  .catch((err) => console.log(err));
+    .then((res) => {
+      likeCounter.textContent = res.likes.length;
+      likeBtn.classList.add("place__like-button_active");
+    })
+    .catch((err) => console.log(err));
 }
 
 // дизлайк
-function dislikeThisCard (likeBtn, _id, likeCounter) {
+function dislikeThisCard(likeBtn, _id, likeCounter) {
   likeCardRemove(_id)
-  .then((res) => {
-    likeCounter.textContent = res.likes.length;
-    likeBtn.classList.remove('place__like-button_active');
-  })
-  .catch((err) => console.log(err));
+    .then((res) => {
+      likeCounter.textContent = res.likes.length;
+      likeBtn.classList.remove("place__like-button_active");
+    })
+    .catch((err) => console.log(err));
 }
 
 // проверка лайка
