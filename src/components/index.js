@@ -22,7 +22,8 @@ import {
   formAvatar,
   avatar,
   renderLoading,
-  placeSubmit,
+  validitySettings,
+  disableButton
 } from "./utils";
 import { createPlace } from "./card";
 import { openPopup, closePopup } from "./modal";
@@ -75,14 +76,7 @@ function renderInitialCards(data) {
   });
 }
 
-enableValidation({
-  formSelector: ".form",
-  inputSelector: ".form__input",
-  submitButtonSelector: ".form__button",
-  inactiveButtonClass: "form__button_disabled",
-  inputErrorClass: "form__input_type_error",
-  errorClass: "form__input-error_active",
-});
+enableValidation(validitySettings);
 
 // СЛУШАТЕЛИ
 
@@ -133,14 +127,15 @@ formAvatar.addEventListener("submit", (evt) => {
   avatarUpdate(avatarUrl.value)
     .then(() => {
       avatar.src = avatarUrl.value;
+      disableButton(evt.submitter);
       closePopup(popUpAvatar);
+      evt.target.reset();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
       renderLoading(false, evt.submitter);
-      evt.target.reset();
     });
 });
 
@@ -163,15 +158,14 @@ formPlace.addEventListener("submit", (evt) => {
         userId
       );
       placesItems.prepend(myCard);
-      evt.submitter.classList.add("form__button_disabled");
-      evt.submitter.disabled = true;
+      disableButton(evt.submitter);
       closePopup(popUpPlace);
+      evt.target.reset();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
       renderLoading(false, evt.submitter);
-      evt.target.reset();
     });
 });

@@ -52,3 +52,8 @@ export function renderLoading(isLoading, button, buttonText = "Сохранит�
     button.textContent = buttonText;
   }
 }
+
+export function disableButton(button) {
+  button.classList.add("form__button_disabled");
+  button.disabled = true;
+}
