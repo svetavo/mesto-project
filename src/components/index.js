@@ -140,7 +140,7 @@ formAvatar.addEventListener("submit", (evt) => {
     })
     .finally(() => {
       renderLoading(false, evt.submitter);
-      evt.target.reset()
+      evt.target.reset();
     });
 });
 
@@ -172,6 +172,6 @@ formPlace.addEventListener("submit", (evt) => {
     })
     .finally(() => {
       renderLoading(false, evt.submitter);
-      evt.target.reset()
+      evt.target.reset();
     });
 });

@@ -45,10 +45,10 @@ export const imageContainer = document.querySelector(".popup__image-content");
 export const popupImageTitle = document.querySelector(".popup__image-title");
 
 // изменение кнопки во время загрузки
-export function renderLoading(isLoading, button, buttonText='Сохранить') {
+export function renderLoading(isLoading, button, buttonText = "Сохранить") {
   if (isLoading) {
-      button.textContent = "Сохранение...";
+    button.textContent = "Сохранение...";
   } else {
-      button.textContent = buttonText;
+    button.textContent = buttonText;
   }
 }
