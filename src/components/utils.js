@@ -1,9 +1,9 @@
 // изменение кнопки во время загрузки
-export function renderLoading(isLoading, button, buttonText = "Сохранить") {
+export function renderLoading(isLoading, button) {
   if (isLoading) {
     button.textContent = "Сохранение...";
   } else {
-    button.textContent = buttonText;
+    button.textContent = "Сохранить";
   }
 }
 
