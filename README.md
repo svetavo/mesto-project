@@ -9,4 +9,7 @@
 
 При верстке использовались технологии grid и flex. Проект написан на языке JavaScript
 
+Также для проекта разработан back-end, репозиторий доступен по ссылке: 
+https://github.com/svetavo/mesto-project-plus
+
 Ссылка на GitHub Pages: https://svetavo.github.io/mesto-project/
